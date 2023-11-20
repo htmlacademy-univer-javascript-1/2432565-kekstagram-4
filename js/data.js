@@ -9,6 +9,18 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+const DESCRIPTIONS = [
+  'Машинка',
+  'Поехали',
+  'Автор неизвестен',
+  'Смешинка',
+  'Пора не пора',
+  'Нормис',
+  'Шампунь без слез',
+  'Отличное пюре',
+  'Мангал клаб'
+];
+
 const USERS = ['Romchik', 'Jenek', 'Mishanya', 'Vika', 'Otpety Moshennik', 'The Rolling Stones', 'Gryaz'];
 
 const addComments = () => {
@@ -33,7 +45,7 @@ const addPhoto = (index) => {
   return {
     id: index,
     url: `photos/${index + 1}.jpg    `,
-    description: 'бомбовое изображение',
+    description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
     likes: likes,
     comments: comments
   };

@@ -1,7 +1,8 @@
 import './util.js';
 import {addPhotos} from './data.js';
+import {renderPhotos} from './thumbnails.js';
 
-console.log(
-  addPhotos()
-);
+
+const pictures = addPhotos();
+renderPhotos(pictures);
 
