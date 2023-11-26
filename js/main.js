@@ -1,8 +1,10 @@
 import './util.js';
-import {addPhotos} from './data.js';
-import {renderPhotos} from './thumbnails.js';
+import { PHOTOS_COUNT, addPhotos} from './data.js';
+import {renderPhotos} from './pictures.js';
+import { initPictures } from './big-picture.js';
 
+const pictures = Array.from( {length: PHOTOS_COUNT}, addPhotos);
 
-const pictures = addPhotos();
 renderPhotos(pictures);
 
+initPictures(pictures);
