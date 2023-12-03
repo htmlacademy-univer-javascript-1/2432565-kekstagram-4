@@ -1,10 +1,10 @@
-import './util.js';
-import { PHOTOS_COUNT, addPhotos} from './data.js';
+import {COUNT_PHOTO , addPhoto} from './data.js';
+
+const photos = [];
+
+for (let i = 1; i <= COUNT_PHOTO; i++) {
+  photos.push(addPhoto(i));
+}
+
 import {renderPhotos} from './pictures.js';
-import { initPictures } from './big-picture.js';
-
-const pictures = Array.from( {length: PHOTOS_COUNT}, addPhotos);
-
-renderPhotos(pictures);
-
-initPictures(pictures);
+renderPhotos(photos);
