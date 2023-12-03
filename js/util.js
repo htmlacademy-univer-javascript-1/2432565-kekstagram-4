@@ -1,3 +1,9 @@
-const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const randomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-export {getRandomInteger};
+
+const createImgUrl = (id, directory, format) => directory + id + format;
+
+const isEscKey = (evt) => evt.key === 'Escape';
+
+export {createImgUrl, randomInteger, isEscKey};
+

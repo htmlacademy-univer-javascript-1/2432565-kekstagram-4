@@ -1,3 +1,4 @@
+/*
 //first task
 const checkStringLength = (str, maxLength) => str.length <= maxLength;
 checkStringLength('cat', 3);
@@ -39,3 +40,4 @@ function isMeetingWithinWorkingHours(startTime, endTime, meetingStart, meetingDu
 const isWithinWorkingHours = isMeetingWithinWorkingHours('8:00', '17:30', '08:00', 900);
 
 
+*/

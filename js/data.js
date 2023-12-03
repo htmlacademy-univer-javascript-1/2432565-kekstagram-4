@@ -1,56 +1,57 @@
-import {getRandomInteger} from './util.js';
+import { createImgUrl, randomInteger } from './util.js';
 
 const COUNT_PHOTO = 25;
-const COMMENTS = [
-  'Всё отлично!', 'В целом всё неплохо. Но не всё.',
+
+const LIKES = {
+  MIN: 15,
+  MAX: 200
+};
+
+const COMMS = {
+  MIN: 0,
+  MAX: 30
+};
+
+const messages = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const DESCRIPTIONS = [
-  'Машинка',
-  'Поехали',
-  'Автор неизвестен',
-  'Смешинка',
-  'Пора не пора',
-  'Нормис',
-  'Шампунь без слез',
-  'Отличное пюре',
-  'Мангал клаб'
+const names = [
+  'ромыч',
+  'михаил',
+  'никитос',
+  'генка',
+  'игорёха',
+  'рамазан',
+  'ирек'
 ];
 
-const USERS = ['Romchik', 'Jenek', 'Mishanya', 'Vika', 'Otpety Moshennik', 'The Rolling Stones', 'Gryaz'];
+const addComment = (index) => ({
+  id: index,
+  avatar: `img/avatar-${randomInteger(1, 6)}.svg`,
+  message: messages[randomInteger(0, messages.length - 1)],
+  name: names[randomInteger(0, names.length - 1)]
+});
 
 const addComments = () => {
-  const randomComment = COMMENTS[getRandomInteger(0, COMMENTS.length)];
-
-  return {
-    id: getRandomInteger(1, 5000),
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: randomComment,
-    name: USERS[getRandomInteger[0, USERS.length]]
-  };
-};
-
-const addPhoto = (index) => {
-  const likes = getRandomInteger(15,200);
-  const commentsCount = getRandomInteger(0, 30);
-
   const comments = [];
-  for (let i = 0; i < commentsCount; i++) {
-    comments.push(addComments());
+  for (let i = 1; i < randomInteger(COMMS.MIN, COMMS.MAX); i++) {
+    comments.push(addComment(i));
   }
-  return {
-    id: index,
-    url: `photos/${index + 1}.jpg    `,
-    description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-    likes: likes,
-    comments: comments
-  };
+  return comments;
 };
 
-const addPhotos = () => Array.from({length: COUNT_PHOTO}, addPhoto);
+const addPhoto = (i) => ({
+  id: i,
+  url: createImgUrl(i, 'photos/', '.jpg'),
+  description: 'Неплохо',
+  likes: randomInteger(LIKES.MIN, LIKES.MAX),
+  comments: addComments()
+});
 
-export {addPhotos};
+export {COUNT_PHOTO, addPhoto};
