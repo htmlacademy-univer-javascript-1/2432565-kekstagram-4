@@ -1,56 +1,80 @@
-import {getRandomInteger} from './util.js';
+import {getRandomInteger, createRandomIdFromRangeGenerator, createImageUrl} from './utils.js';
 
-const COUNT_PHOTO = 25;
-const COMMENTS = [
-  'Всё отлично!', 'В целом всё неплохо. Но не всё.',
+const DESCRIPTIONS = [
+  'Алоха',
+  'Сказочное Бали',
+  'Кошак',
+  'Анекдот про хитрость лесных кабанчиков',
+  'Алёна',
+  'Смена на заводе',
+  'Альбер Камю',
+  'Мышь Элджернон',
+  'DOSTOEVSKY',
+];
+
+const NAMES = [
+  'Валя',
+  'Ирек',
+  'Вероничка',
+  'Рима',
+  'Рома',
+  'Юлиана',
+  'Мия',
+  'Рамиль'
+];
+
+const MESSAGES = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
+const PHOTOS_COUNT = 25;
+const imageIdGenerator = createRandomIdFromRangeGenerator(1, PHOTOS_COUNT);
+const imageUrlGenerator = createRandomIdFromRangeGenerator(1, PHOTOS_COUNT);
 
-const DESCRIPTIONS = [
-  'Машинка',
-  'Поехали',
-  'Автор неизвестен',
-  'Смешинка',
-  'Пора не пора',
-  'Нормис',
-  'Шампунь без слез',
-  'Отличное пюре',
-  'Мангал клаб'
-];
-
-const USERS = ['Romchik', 'Jenek', 'Mishanya', 'Vika', 'Otpety Moshennik', 'The Rolling Stones', 'Gryaz'];
-
-const addComments = () => {
-  const randomComment = COMMENTS[getRandomInteger(0, COMMENTS.length)];
-
-  return {
-    id: getRandomInteger(1, 5000),
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: randomComment,
-    name: USERS[getRandomInteger[0, USERS.length]]
-  };
+const COMMENTS = {
+  MIN : 0,
+  MAX : 30
 };
 
-const addPhoto = (index) => {
-  const likes = getRandomInteger(15,200);
-  const commentsCount = getRandomInteger(0, 30);
+const LIKES = {
+  MAX: 200,
+  MIN: 15
+};
 
-  const comments = [];
-  for (let i = 0; i < commentsCount; i++) {
-    comments.push(addComments());
+const createRandomComment = (generatorComments, generatorUrl) => ({
+  id: generatorComments(),
+  avatar: createImageUrl(generatorUrl(), 'img/avatar-', '.svg'),
+  name: NAMES[getRandomInteger(0, NAMES.length - 1)],
+  message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
+});
+
+const createRandomComments = (count) => {
+  const result = [];
+  const commentIdGenerator = createRandomIdFromRangeGenerator(1, count);
+
+  for(let i = 0; i < count; i++) {
+    const urlIdGenerator = createRandomIdFromRangeGenerator(1, 6);
+
+    result.push(createRandomComment(commentIdGenerator, urlIdGenerator));
   }
-  return {
-    id: index,
-    url: `photos/${index + 1}.jpg    `,
-    description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-    likes: likes,
-    comments: comments
-  };
+
+  return result;
 };
 
-const addPhotos = () => Array.from({length: COUNT_PHOTO}, addPhoto);
+const createImage = () => ({
+  id: imageIdGenerator(),
 
-export {addPhotos};
+  url: createImageUrl(imageUrlGenerator(), 'photos/', '.jpg'),
+
+  description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
+
+  likes: getRandomInteger(LIKES.MIN, LIKES.MAX),
+
+  comments: createRandomComments(getRandomInteger(COMMENTS.MIN, COMMENTS.MAX)),
+});
+
+export {PHOTOS_COUNT, createImage};
