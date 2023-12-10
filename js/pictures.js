@@ -1,33 +1,37 @@
-import { showBigPicture } from './big-picture.js';
+import {showBigPicture} from './big-picture.js';
 
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const fragment = document.createDocumentFragment();
+const pictureFragments = document.createDocumentFragment();
+const picturesTemplate = document.querySelector('#picture')
+  .content
+  .querySelector('a');
 
-const renderPhoto = (photo) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
+const createPicture = (picture) => {
+  const currentPicture = picturesTemplate.cloneNode(true);
 
-  pictureElement.querySelector('img').src = photo.url;
-  pictureElement.querySelector('img').alt = photo.description;
-  pictureElement.querySelector('.picture__comments').textContent = photo.comments.length;
-  pictureElement.querySelector('.picture__likes').textContent = photo.likes;
+  currentPicture.querySelector('img').src = picture.url;
+  currentPicture.querySelector('img').alt = picture.description;
+  currentPicture.querySelector('.picture__comments').textContent = picture.comments.length;
+  currentPicture.querySelector('.picture__likes').textContent = picture.likes;
 
-  const onPictureElementClick = (evt) => {
+
+  const onPictureClick = (evt) => {
     evt.preventDefault();
-    showBigPicture(photo);
+    showBigPicture(picture);
   };
-
-  pictureElement.addEventListener('click', onPictureElementClick);
-  fragment.append(pictureElement);
+  currentPicture.dataset.id = picture.id;
+  currentPicture.addEventListener('click', onPictureClick);
+  pictureFragments.append(currentPicture);
 };
 
-const renderPhotos = (photos) => {
-  const pictures = document.querySelector('.pictures');
+const createPictures = (pictures) => {
 
-  photos.forEach((photo) => {
-    renderPhoto(photo);
+  const pictureContainer = document.querySelector('.pictures');
+  pictures.forEach((picture) => {
+    createPicture(picture);
   });
 
-  pictures.append(fragment);
+  pictureContainer.append(pictureFragments);
 };
 
-export{renderPhotos};
+export {createPictures};
+
