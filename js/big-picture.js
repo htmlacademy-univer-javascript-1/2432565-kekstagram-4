@@ -1,3 +1,4 @@
+
 import {isEscKey} from './utils.js';
 
 const commentTemplate = document.querySelector('#comments').content.querySelector('li');
@@ -13,7 +14,9 @@ const bigPictureCommentsCount = bigPictureForm.querySelector('.social__comment-c
 
 const socials = document.querySelector('.social__comments');
 
-const closeButton = document.querySelector('#picture-cancel');
+
+let commentsCount = COMMENTS_STEP;
+let currentComments = [];
 
 const COMMENTS_STEP =  5;
 const loader = document.querySelector('.comments-loader');
@@ -60,11 +63,9 @@ const onLoadNewComments = (evt) => {
   createComments();
 };
 
-const renderBigPicture = (data) =>{
-  bigPictureImage.src = data.url;
-  bigPictureLikes.textContent = data.likes;
-  bigPictureDescription.textContent = data.description;
-  bigPictureCommentsCount.textContent = data.comments.length;
+const onLoadCommentsButtonClick = () => {
+  commentsCount += COMMENTS_STEP;
+  renderComments();
 };
 
 const closeBigPicture = () => {

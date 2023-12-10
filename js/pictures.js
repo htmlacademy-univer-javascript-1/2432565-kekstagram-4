@@ -34,3 +34,4 @@ const createPictures = (pictures) => {
 };
 
 export {createPictures};
+
