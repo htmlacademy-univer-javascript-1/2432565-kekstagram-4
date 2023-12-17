@@ -10,5 +10,4 @@ function debounce (callback, timeoutDelay = 500) {
 
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
-
 export {isEscKey, debounce, shuffle};
